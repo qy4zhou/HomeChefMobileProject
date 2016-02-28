@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="css/bootstrap.css" />
         <link rel="stylesheet" href="css/main.css" />
         <!-- link rel="stylesheet" href="demo.css" / -->
-                <script src='cordova.js'></script>
+        <script src='cordova.js'></script>
 
         <script src="js/angular.min.js"></script>
         <script src="js/angular-route.min.js"></script>
@@ -27,25 +27,14 @@
     </head>
 
     <body>
-        <div ng-controller = "formController">
-            <div class="containerCenter">
-                <a href="/all.html"><img id="button2" src = "images/button1-viewAll.gif"></a>
-            </div>
-<!--
-            <table id="searchTextResults">
-                <tr ng-repeat="recipe in recipes | filter:searchText">
-                    <td>
-                        {{entry.title}} <br>
-                        {{entry.content}}<br>
-                        {{entry.notes}}<br>
-                    </td>
-                </tr>
-            </table>
-            </div>
--->
-        <br><br><br><br><br><br>
         <div class="containerCenter">
-            <a href="new.html"><img id="button1" src = "images/button1-createNew.gif"></a>
+            <img id="button2" src = "images/button2.gif">
+            <div class="search">
+                <h5>Search Recipes:</h5><label><input ng-model="searchText"></label>
+            </div>
+        </div>
+        <div class = "pull-right">
+            <a href = "/index.html"><input class="linkButton2" type="button" value = ""></a>
         </div>
     </body>
 

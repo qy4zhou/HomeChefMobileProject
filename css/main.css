@@ -1,11 +1,25 @@
 body, .backgroundColor{
     background: #FF7F50;
-    font-size: 20px;
+    font-size: 12px;
+}
+
+.section{
+    padding-top: 0px;
+}
+
+h4{
+    margin-bottom: 0px;
+    font-weight: 600;
+}
+
+h3, h5{
+    font-weight: 600;
 }
 
 .containerCenter{
     height: 70px;
     position: relative;
+    text-align: center;
 }
 
 .containerCenter .search{
@@ -22,12 +36,17 @@ body, .backgroundColor{
     z-index: 1;
 }
 
+.containerCenter img{
+    max-height: 120px;
+}
+
 .linkButton1 {
     background-image: url(/images/button1-save.gif);
     background-position:  0px 0px;
     background-repeat: no-repeat;
-    width: 189px;
-    height: 96px;
+    background-size: 100%;
+    width: 99px;
+    height: 51px;
     border: 0px;
     background-color: transparent;
     cursor: pointer;
@@ -38,19 +57,26 @@ body, .backgroundColor{
     background-image: url(/images/button1-home.gif);
     background-position:  0px 0px;
     background-repeat: no-repeat;
-    width: 189px;
-    height: 96px;
+    background-size: 100%;
+    width: 99px;
+    height: 51px;
     border: 0px;
     background-color: transparent;
     cursor: pointer;
     outline: 0;
 }
 
+input {
+    padding: 5px 8px;
+}
+
+.containerEdit{
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 textarea {
     padding: 5px 8px;
     background: #fffbe7;
-}
-
-input {
-    padding: 5px 8px;
 }

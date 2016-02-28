@@ -27,126 +27,141 @@
     <body>
         <div class="scrollable">
             <div class="scrollable-content  section backgroundColor">
-<!--
-                <div ng-controller = "formController">
-                    <table>
-                        <tr ng-repeat = "entry in collection">
-                            <td>
-                                {{entry.title}} <br>
-                                {{entry.content}}<br>
-                                {{entry.notes}}<br>
-                            </td>
-                        </tr>
-                    </table>
+                <!--
+<div ng-controller = "formController">
+<table>
+<tr ng-repeat = "entry in collection">
+<td>
+{{entry.title}} <br>
+{{entry.content}}<br>
+{{entry.notes}}<br>
+</td>
+</tr>
+</table>
 
-                    <form class="formNew" ng-submit="addEntry()">
-                        <h3>Recipe Name</h3>
-                        <textarea rows = "1" cols="50" ng-model = "newData.title" required></textarea><br>
-                        <h3>Ingredients</h3>
-                        <textarea rows = "6" cols="50" ng-model = "newData.content" required></textarea>
-                        <br><br>
-                        <h3>Notes (tips for next time?)</h3>
-                        <textarea rows = "3" cols="50" ng-model = "newData.notes" required></textarea>
-                        <br><br><br>
-                        <div row = "col-xs-6">
-                        <div class = "pull-right">
-                            <input class="linkButton1" type = "submit" value = "">
-                        </div>
-                        <div class = "pull-left">
-                            <a href = "/index.html"><input class="linkButton2" type="button" value = ""></a>
-                        </div>
-                        </div>
-                    </form>
+<form class="formNew" ng-submit="addEntry()">
+<h3>Recipe Name</h3>
+<textarea rows = "1" cols="50" ng-model = "newData.title" required></textarea><br>
+<h3>Ingredients</h3>
+<textarea rows = "6" cols="50" ng-model = "newData.content" required></textarea>
+<br><br>
+<h3>Notes (tips for next time?)</h3>
+<textarea rows = "3" cols="50" ng-model = "newData.notes" required></textarea>
+<br><br><br>
+<div row = "col-xs-6">
+<div class = "pull-right">
+<input class="linkButton1" type = "submit" value = "">
+</div>
+<div class = "pull-left">
+<a href = "/index.html"><input class="linkButton2" type="button" value = ""></a>
+</div>
+</div>
+</form>
 
-                </div>
+</div>
 -->
-        <form onsubmit="return saveText()">
-            <label for="name">Recipe Name</label><br>
-            <input id="name" /><br>
+                <img class="centered" id="button2" src = "images/button2-createNew.gif">
+                <br><br>
+                <div class="containerEdit">
+                    <form onsubmit="return saveText()">
+                        <label for="name"><h4>Recipe Name</h4></label><br>
+                        <textarea rows = "1" cols="30" id="name"></textarea><br>
 
-            <label for="desc">Description</label><br>
-            <input id="desc" /><br>
+                        <label for="content"><h4>Ingredients</h4></label><br>
+                        <textarea rows = "6" cols="40" id="content"></textarea><br>
 
-            <label for="notes">Notes</label><br>
-            <input id="notes" /><br>
+                        <label for="notes"><h4>Notes</h4></label><br>
+                        <textarea rows = "3" cols="40" id="notes"></textarea><br>
 
-            <input type="submit" value="Save" />
-        </form>
-                        <dl id="definitions">
+                        <br><br>
 
-        </dl>
-            </div>
+                        <div row = "col-xs-6">
+                            <div class = "pull-left">
+                                <input class="linkButton1" onclick="alertFunction()" type = "submit" value = "">
+                            </div>
+                            <div class = "pull-right">
+                                <a href = "/index.html"><input class="linkButton2" type="button" value = ""></a>
+                            </div>
+                        </div>
+                        </div>
+                    <dl id="definitions"></dl>
+                </div>
+                </form>
         </div>
 
         <script>
-        var FILENAME = 'database.db',
-            $ = function (id) {
-                return document.getElementById(id);
-            },
-            failCB = function (msg) {
-                return function () {
-                    alert('[FAIL] ' + msg);
-                }
-            },
-            file = {
-                writer: { available: false },
-                reader: { available: false }
-            },
-            dbEntries = [];
-        document.addEventListener('deviceready', function () {
-            var fail = failCB('requestFileSystem');
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-        }, false);
-        function gotFS(fs) {
-            var fail = failCB('getFile');
-            fs.root.getFile(FILENAME, {create: true, exclusive: false},
-                            gotFileEntry, fail);
-        }
-        function gotFileEntry(fileEntry) {
-            var fail = failCB('createWriter');
-            file.entry = fileEntry;
-            fileEntry.createWriter(gotFileWriter, fail);
-            readText();
-        }
-        function gotFileWriter(fileWriter) {
-            file.writer.available = true;
-            file.writer.object = fileWriter;
-        }
-        function saveText(e) {
-            var name = $('name').value,
-                desc = $('desc').value,
-                notes = $('notes').value,
-                fail;
-            dbEntries.push('<dt>' + name + '</dt><dd>' + desc + '</dd>' + '<dd>' + notes + '</dd>')
-            $('name').value = '';
-            $('desc').value = '';
-            $('notes').value = '';
-            $('definitions').innerHTML = dbEntries.join('');
-            if (file.writer.available) {
-                file.writer.available = false;
-                file.writer.object.onwriteend = function (evt) {
-                    file.writer.available = true;
-                    file.writer.object.seek(0);
-                }
-                file.writer.object.write(dbEntries.join("\n"));
-            }
-            return false;
-        }
-        function readText() {
-            if (file.entry) {
-                file.entry.file(function (dbFile) {
-                    var reader = new FileReader();
-                    reader.onloadend = function (evt) {
-                        var textArray = evt.target.result.split("\n");
-                        dbEntries = textArray.concat(dbEntries);
-                        $('definitions').innerHTML = dbEntries.join('');
+            function alertFunction(){
+                alert("Saved");
+            };
+
+            var FILENAME = 'database.db',
+                $ = function (id) {
+                    return document.getElementById(id);
+                },
+                failCB = function (msg) {
+                    return function () {
+                        alert('[FAIL] ' + msg);
                     }
-                    reader.readAsText(dbFile);
-                }, failCB("FileReader"));
+                },
+                file = {
+                    writer: { available: false },
+                    reader: { available: false }
+                },
+                dbEntries = [];
+            document.addEventListener('deviceready', function () {
+                var fail = failCB('requestFileSystem');
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+            }, false);
+            function gotFS(fs) {
+                var fail = failCB('getFile');
+                fs.root.getFile(FILENAME, {create: true, exclusive: false},
+                                gotFileEntry, fail);
             }
-            return false;
-        }
-    </script>
+            function gotFileEntry(fileEntry) {
+                var fail = failCB('createWriter');
+                file.entry = fileEntry;
+                fileEntry.createWriter(gotFileWriter, fail);
+                readText();
+            }
+            function gotFileWriter(fileWriter) {
+                file.writer.available = true;
+                file.writer.object = fileWriter;
+            }
+            function saveText(e) {
+                var name = $('name').value,
+                    content = $('content').value,
+                    notes = $('notes').value,
+                    fail;
+                dbEntries.push('<dt>' + name + '</dt><dd>' + content + '</dd>' + '<dd>' + notes + '</dd>')
+                $('name').value = '';
+                $('content').value = '';
+                $('notes').value = '';
+                $('definitions').innerHTML = dbEntries.join('');
+                if (file.writer.available) {
+                    file.writer.available = false;
+                    file.writer.object.onwriteend = function (evt) {
+                        file.writer.available = true;
+                        file.writer.object.seek(0);
+                    }
+                    file.writer.object.write(dbEntries.join("\n"));
+                }
+                return false;
+            }
+            function readText() {
+                if (file.entry) {
+                    file.entry.file(function (dbFile) {
+                        var reader = new FileReader();
+                        reader.onloadend = function (evt) {
+                            var textArray = evt.target.result.split("\n");
+                            dbEntries = textArray.concat(dbEntries);
+                            $('definitions').innerHTML = dbEntries.join('');
+                        }
+                        reader.readAsText(dbFile);
+                    }, failCB("FileReader"));
+                }
+                return false;
+            }
+        </script>
 
     </body>
 </html>
