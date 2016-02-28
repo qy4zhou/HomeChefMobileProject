@@ -1,0 +1,56 @@
+body, .backgroundColor{
+    background: #FF7F50;
+    font-size: 20px;
+}
+
+.containerCenter{
+    height: 70px;
+    position: relative;
+}
+
+.containerCenter .search{
+    padding-top: 20px;
+}
+
+.containerCenter img, .containerCenter .search{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.linkButton1 {
+    background-image: url(/images/button1-save.gif);
+    background-position:  0px 0px;
+    background-repeat: no-repeat;
+    width: 189px;
+    height: 96px;
+    border: 0px;
+    background-color: transparent;
+    cursor: pointer;
+    outline: 0;
+}
+
+.linkButton2 {
+    background-image: url(/images/button1-home.gif);
+    background-position:  0px 0px;
+    background-repeat: no-repeat;
+    width: 189px;
+    height: 96px;
+    border: 0px;
+    background-color: transparent;
+    cursor: pointer;
+    outline: 0;
+}
+
+textarea {
+    padding: 5px 8px;
+    background: #fffbe7;
+}
+
+input {
+    padding: 5px 8px;
+}
