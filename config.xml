@@ -7,13 +7,14 @@
         You are here example
     </description>
     <content src="index.html" />
-    <author href="https://rhildred.github.io" email="rhildred@gmail.com">
-        Rich Hildred and Mobile App Class of 2015
-    </author>
+    <author href="https://qy4zhou.github.io">
+Qinyuan Zhou    </author>
     <!-- We'll include the Barcode plugin as an example -->
+<!--
     <preference name="phonegap-version" value="3.7.0" />
     <preference name="loadUrlTimeoutValue" value="700000" />
-
+-->
+    <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
     <plugin name="org.apache.cordova.geolocation" />
     <plugin name="org.apache.cordova.device" />
     <feature name="Geolocation">
