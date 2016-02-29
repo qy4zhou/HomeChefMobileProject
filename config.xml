@@ -11,7 +11,9 @@
         Rich Hildred and Mobile App Class of 2015
     </author>
     <!-- We'll include the Barcode plugin as an example -->
-    <preference name="phonegap-version" value="3.7.0" />
+<!--    <preference name="phonegap-version" value="3.7.0" />-->
+    <preference name="loadUrlTimeoutValue" value="700000" />
+
     <plugin name="org.apache.cordova.geolocation" />
     <plugin name="org.apache.cordova.device" />
     <feature name="Geolocation">
