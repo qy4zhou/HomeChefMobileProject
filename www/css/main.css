@@ -41,7 +41,7 @@ h3, h5{
 }
 
 .linkButton1 {
-    background-image: url(/images/button1-save.gif);
+    background-image: url(../images/button1-save.gif);
     background-position:  0px 0px;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -54,7 +54,7 @@ h3, h5{
 }
 
 .linkButton2 {
-    background-image: url(/images/button1-home.gif);
+    background-image: url(../images/button1-home.gif);
     background-position:  0px 0px;
     background-repeat: no-repeat;
     background-size: 100%;
