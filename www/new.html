@@ -20,7 +20,6 @@
         <!-- Required to use $swipe, $drag and Translate services -->
         <script src="js/mobile-angular-ui.gestures.min.js"></script>
         <script src='js/lodash.min.js'></script>
-        <script src="form.js"></script>
         <script src="js/index.js"></script>
     </head>
 
@@ -66,21 +65,17 @@
                     <form onsubmit="return saveText()">
                         <label for="name"><h4>Recipe Name</h4></label><br>
                         <textarea rows = "1" cols="30" id="name"></textarea><br>
-
-                        <label for="content"><h4>Ingredients</h4></label><br>
+                        <label for="content"><h4>Ingredients/Instructions</h4></label><br>
                         <textarea rows = "6" cols="40" id="content"></textarea><br>
-
                         <label for="notes"><h4>Notes</h4></label><br>
                         <textarea rows = "3" cols="40" id="notes"></textarea><br>
-
                         <br><br>
-
                         <div row = "col-xs-6">
                             <div class = "pull-left">
-                                <a onclick="alertFunction()" href = "/index.html"><input class="linkButton1" type="button" value = ""></a>
+                                <input class="linkButton1" type="submit" value = "" onclick="alertFunction()">
                             </div>
                             <div class = "pull-right">
-                                <a href = "/index.html"><input class="linkButton2" type="button" value = ""></a>
+                                <a href = "index.html"><input class="linkButton2" type="button" value = ""></a>
                             </div>
                         </div>
                         </div>
@@ -92,6 +87,7 @@
         <script>
             function alertFunction(){
                 alert("Saved");
+                window.location.replace("/index.html");
             };
 
             var FILENAME = 'database.db',
@@ -132,7 +128,7 @@
                     content = $('content').value,
                     notes = $('notes').value,
                     fail;
-                dbEntries.push('<dt>' + name + '</dt><dd>' + content + '</dd>' + '<dd>' + notes + '</dd>')
+//                dbEntries.push('<dt>' + name + '</dt><dd>' + content + '</dd>' + '<dd>' + notes + '</dd>')
                 $('name').value = '';
                 $('content').value = '';
                 $('notes').value = '';
