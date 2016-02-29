@@ -6,12 +6,12 @@
     <description>
         You are here example
     </description>
-    <content src="www/index.html" />
+    <content src="index.html" />
     <author href="https://rhildred.github.io" email="rhildred@gmail.com">
         Rich Hildred and Mobile App Class of 2015
     </author>
     <!-- We'll include the Barcode plugin as an example -->
-<!--    <preference name="phonegap-version" value="3.7.0" />-->
+    <preference name="phonegap-version" value="3.7.0" />
     <preference name="loadUrlTimeoutValue" value="700000" />
 
     <plugin name="org.apache.cordova.geolocation" />
