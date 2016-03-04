@@ -12,8 +12,6 @@
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <script src="js/index.js"></script>
-
     <script type="text/javascript" charset="utf-8">
         var db;
         var shortName = 'WebSqlDB';
@@ -32,7 +30,7 @@
         function nullHandler() {};
 
         function onBodyLoad() {
-           // alert("DEBUGGING: we are in the onBodyLoad() function");
+            // alert("DEBUGGING: we are in the onBodyLoad() function");
             if (!window.openDatabase) {
                 alert('Databases are not supported in this browser.');
                 return;
@@ -79,13 +77,23 @@
 
         $(document).ready(function () {
             $('#newPage').hide();
+            $('#allPage').hide();
 
             $("#home").click(function () {
+                $("#allPage").hide();
+                $("#newPage").hide();
                 $("#index").toggle();
+            });
 
-                $("#new").click(function () {
-                    $("#newPage").toggle();
-                });
+            $("#new").click(function () {
+                $("#index").hide();
+                $("#allPage").hide();
+                $("#newPage").toggle();
+            });
+            $("#all").click(function () {
+                $("#index").hide();
+                $("#new").hide();
+                $("#allPage").toggle();
             });
         });
     </script>
@@ -94,7 +102,7 @@
 <body onload="onBodyLoad()">
     <div id="index">
         <div class="containerCenter">
-            <a href="all.html"><img id="button2" src="images/button1-viewAll.gif"></a>
+            <a id="all" href="#"><img id="button2" src="images/button1-viewAll.gif"></a>
         </div>
         <a href="play.html">sdfsdf</a>
         <br>
@@ -104,7 +112,7 @@
         <br>
         <br>
         <div class="containerCenter">
-            <a id="new" href="new.html"><img id="button1" src="images/button1-createNew.gif"></a>
+            <a id="new" href="#"><img id="button1" src="images/button1-createNew.gif"></a>
         </div>
     </div>
 
@@ -136,13 +144,33 @@
                         <input class="linkButton1" type="submit" value="" onclick="AddValueToDB()">
                     </div>
                     <div class="pull-right">
-                        <a id="home" href="index.html">
+                        <a id="home" href="#">
                             <input class="linkButton2" type="button" value="">
                         </a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="allPage">
+        <div class="containerCenter">
+            <img id="button2" src="images/button2.gif">
+            <div class="search">
+                <h3>Search Recipes</h3>
+                <label>
+                    <input value="input here">
+                </label>
+            </div>
+        </div>
+        <div class="pull-right">
+            <a href="index.html">
+                <input class="linkButton2" type="button" value="">
+            </a>
+        </div>
+        <input type="button" value="Refresh" onClick="ListDBValues()">
+        <span style="font-weight:bold;">Currently stored values:</span>
+        <span id="lbRecipes"></span>
     </div>
 </body>
 

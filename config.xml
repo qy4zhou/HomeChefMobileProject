@@ -10,10 +10,8 @@
     <author href="https://qy4zhou.github.io">
 Qinyuan Zhou    </author>
     <!-- We'll include the Barcode plugin as an example -->
-<!--
     <preference name="phonegap-version" value="3.7.0" />
     <preference name="loadUrlTimeoutValue" value="700000" />
--->
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
     <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.6" source="pgb" />
 <feature name="Plugin">
