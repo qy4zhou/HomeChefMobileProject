@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/main.css" />
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="lawnchair-0.6.1.js"></script>
+        <script type="text/javascript" src="Lawnchair-sqlitePlugin.js"></script>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8">
         var db;
@@ -20,24 +22,24 @@
         var maxSize = 65535;
 
         function errorHandler(transaction, error) {
-            // alert('Error: ' + error.message + ' code: ' + error.code);
+             alert('Error: ' + error.message + ' code: ' + error.code);
         }
 
         function successCallBack() {
-            //  alert("DEBUGGING: success");
+    //          alert("DEBUGGING: success");
         }
 
         function nullHandler() {};
 
         function onBodyLoad() {
-            // alert("DEBUGGING: we are in the onBodyLoad() function");
+  //          alert("DEBUGGING: we are in the onBodyLoad() function");
             if (!window.openDatabase) {
                 alert('Databases are not supported in this browser.');
                 return;
             }
             db = openDatabase(shortName, version, displayName, maxSize);
             db.transaction(function (tx) {
-                tx.executeSql('DROP TABLE Recipes', nullHandler, nullHandler);
+              //  tx.executeSql('DROP TABLE Recipes', nullHandler, nullHandler);
                 tx.executeSql('CREATE TABLE IF NOT EXISTS Recipes(name TEXT, content TEXT, notes TEXT)', [], nullHandler, errorHandler);
             }, errorHandler, successCallBack);
         }
