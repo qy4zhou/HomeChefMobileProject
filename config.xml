@@ -11,26 +11,26 @@
     <author href="https://qy4zhou.github.io">
 Qinyuan Zhou    </author>
 -->
-    <!-- We'll include the Barcode plugin as an example -->
-    <preference name="phonegap-version" value="3.7.0" />
+<!-- We'll include the Barcode plugin as an example -->
+<preference name="phonegap-version" value="3.7.0" />
 <!--
     <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
-
-    <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.6" source="pgb" />
-<feature name="Plugin">
-            <param name="android-package" value="com.example.Plugin" />
-        </feature>-->
+-->
 <!--</widget>-->
 
-  <widget id="io.github.qy4zhou" version="0.0.1">
-        <name>Home Chef</name>
-        <description>
-            A simple app for storing recipes.
-        </description>
-        <author email="qinyuan823@gmail.com">
-Katie Zhou
-        </author>
-        <content src="index.html" />
-        <access origin="*" />
-    </widget>
+<widget id="io.github.qy4zhou" version="0.0.1">
+    <name>Home Chef</name>
+    <description>
+        A simple app for storing recipes.
+    </description>
+    <author email="qinyuan823@gmail.com">
+        Katie Zhou
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.6" source="pgb" />
+    <feature name="Plugin">
+        <param name="android-package" value="com.example.Plugin" />
+    </feature>
+</widget>
