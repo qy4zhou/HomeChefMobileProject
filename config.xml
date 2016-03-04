@@ -15,6 +15,10 @@ Qinyuan Zhou    </author>
     <preference name="loadUrlTimeoutValue" value="700000" />
 -->
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
+    <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.6" source="pgb" />
+<feature name="Plugin">
+            <param name="android-package" value="com.example.Plugin" />
+        </feature>
     <plugin name="org.apache.cordova.geolocation" />
     <plugin name="org.apache.cordova.device" />
     <feature name="Geolocation">

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=default-width; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script src="js/index.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        var db;
+        var shortName = 'WebSqlDB';
+        var version = '1.0';
+        var displayName = 'WebSqlDB';
+        var maxSize = 65535;
+
+        function errorHandler(transaction, error) {
+            alert('Error: ' + error.message + ' code: ' + error.code);
+        }
+
+        function successCallBack() {
+            //   alert("DEBUGGING: success");
+        }
+
+        function nullHandler() {};
+
+        function onBodyLoad() {
+            //alert("DEBUGGING: we are in the onBodyLoad() function");
+            if (!window.openDatabase) {
+                // alert('Databases are not supported in this browser.');
+                return;
+            }
+            db = openDatabase(shortName, version, displayName, maxSize);
+            db.transaction(function (tx) {
+                //tx.executeSql( 'DROP TABLE User',nullHandler,nullHandler);
+                tx.executeSql('CREATE TABLE IF NOT EXISTS Recipes(name TEXT, content TEXT, notes TEXT)', [], nullHandler, errorHandler);
+            }, errorHandler, successCallBack);
+
+        }
+
+        function AddValueToDB() {
+            if (!window.openDatabase) {
+                alert('Databases are not supported in this browser.');
+                return;
+            }
+            db.transaction(function (transaction) {
+                transaction.executeSql('INSERT INTO Recipes(name, content, notes) VALUES (?,?,?)', [$('#txName').val(), $('#txContent').val(), $('#txNotes').val()], nullHandler, errorHandler);
+            });
+            //ListDBValues();
+            return false;
+        }
+    </script>
+</head>
+
+<body onload="onBodyLoad()">
+    <h1>WebSQL</h1>
+
+    <input id="txName" type="text" placeholder="FirstName">
+    <input id="txContent" type="text" placeholder="Last Name">
+    <input id="txNotes" type="text" placeholder="Last Name">
+    <input type="button" value="Add record" onClick="AddValueToDB()">
+    <input type="button" value="Refresh" onClick="ListDBValues()">
+    <br>
+    <br>
+    <span style="font-weight:bold;">Currently stored values:</span>
+    <span id="lbRecipes"></span>
+</body>
+
+</html>

@@ -151,7 +151,7 @@ function FastClick(layer, options) {
 	}
 
 	// If a handler is already declared in the element's onclick attribute, it will be fired before
-	// FastClick's onClick handler. Fix this by pulling out the user-defined handler function and
+	// FastClick's onClick handler. Fix this by pulling out the recipe-defined handler function and
 	// adding it as listener.
 	if (typeof layer.onclick === 'function') {
 
@@ -171,7 +171,7 @@ function FastClick(layer, options) {
  *
  * @type boolean
  */
-var deviceIsAndroid = navigator.userAgent.indexOf('Android') > 0;
+var deviceIsAndroid = navigator.recipeAgent.indexOf('Android') > 0;
 
 
 /**
@@ -179,7 +179,7 @@ var deviceIsAndroid = navigator.userAgent.indexOf('Android') > 0;
  *
  * @type boolean
  */
-var deviceIsIOS = /iP(ad|hone|od)/.test(navigator.userAgent);
+var deviceIsIOS = /iP(ad|hone|od)/.test(navigator.recipeAgent);
 
 
 /**
@@ -187,7 +187,7 @@ var deviceIsIOS = /iP(ad|hone|od)/.test(navigator.userAgent);
  *
  * @type boolean
  */
-var deviceIsIOS4 = deviceIsIOS && (/OS 4_\d(_\d)?/).test(navigator.userAgent);
+var deviceIsIOS4 = deviceIsIOS && (/OS 4_\d(_\d)?/).test(navigator.recipeAgent);
 
 
 /**
@@ -195,14 +195,14 @@ var deviceIsIOS4 = deviceIsIOS && (/OS 4_\d(_\d)?/).test(navigator.userAgent);
  *
  * @type boolean
  */
-var deviceIsIOSWithBadTarget = deviceIsIOS && (/OS ([6-9]|\d{2})_\d/).test(navigator.userAgent);
+var deviceIsIOSWithBadTarget = deviceIsIOS && (/OS ([6-9]|\d{2})_\d/).test(navigator.recipeAgent);
 
 /**
  * BlackBerry requires exceptions.
  *
  * @type boolean
  */
-var deviceIsBlackBerry10 = navigator.userAgent.indexOf('BB10') > 0;
+var deviceIsBlackBerry10 = navigator.recipeAgent.indexOf('BB10') > 0;
 
 /**
  * Determine whether a given element requires a native click.
@@ -403,7 +403,7 @@ FastClick.prototype.onTouchStart = function(event) {
 		if (!deviceIsIOS4) {
 
 			// Weird things happen on iOS when an alert or confirm dialog is opened from a click event callback (issue #23):
-			// when the user next taps anywhere else on the page, new touchstart and touchend events are dispatched
+			// when the recipe next taps anywhere else on the page, new touchstart and touchend events are dispatched
 			// with the same identifier as the touch event that previously triggered the click that triggered the alert.
 			// Sadly, there is an issue on iOS 4 that causes some normal touch events to have the same identifier as an
 			// immediately preceeding touch event (issue #52), so this fix is unavailable on that platform.
@@ -418,9 +418,9 @@ FastClick.prototype.onTouchStart = function(event) {
 			this.lastTouchIdentifier = touch.identifier;
 
 			// If the target element is a child of a scrollable layer (using -webkit-overflow-scrolling: touch) and:
-			// 1) the user does a fling scroll on the scrollable layer
-			// 2) the user stops the fling scroll with another tap
-			// then the event.target of the last 'touchend' event will be the element that was under the user's finger
+			// 1) the recipe does a fling scroll on the scrollable layer
+			// 2) the recipe stops the fling scroll with another tap
+			// then the event.target of the last 'touchend' event will be the element that was under the recipe's finger
 			// when the fling scroll was started, causing FastClick to send a click event to that layer - unless a check
 			// is made to ensure that a parent layer was not scrolled before sending a synthetic click (issue #42).
 			this.updateScrollParent(targetElement);
@@ -563,7 +563,7 @@ FastClick.prototype.onTouchEnd = function(event) {
 	} else if (this.needsFocus(targetElement)) {
 
 		// Case 1: If the touch started a while ago (best guess is 100ms based on tests for issue #36) then focus will be triggered anyway. Return early and unset the target element reference so that the subsequent click will be allowed through.
-		// Case 2: Without this exception for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the user types (issue #37).
+		// Case 2: Without this exception for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the recipe types (issue #37).
 		if ((event.timeStamp - trackingClickStart) > 100 || (deviceIsIOS && window.top !== window && targetTagName === 'input')) {
 			this.targetElement = null;
 			return false;
@@ -643,7 +643,7 @@ FastClick.prototype.onMouse = function(event) {
 	// to prevent ghost/doubleclicks.
 	if (!this.needsClick(this.targetElement) || this.cancelNextClick) {
 
-		// Prevent any user-added listeners declared on FastClick element from being fired.
+		// Prevent any recipe-added listeners declared on FastClick element from being fired.
 		if (event.stopImmediatePropagation) {
 			event.stopImmediatePropagation();
 		} else {
@@ -683,7 +683,7 @@ FastClick.prototype.onClick = function(event) {
 		return true;
 	}
 
-	// Very odd behaviour on iOS (issue #18): if a submit element is present inside a form and the user hits enter in the iOS simulator or clicks the Go button on the pop-up OS keyboard the a kind of 'fake' click event will be triggered with the submit-type input element as the target.
+	// Very odd behaviour on iOS (issue #18): if a submit element is present inside a form and the recipe hits enter in the iOS simulator or clicks the Go button on the pop-up OS keyboard the a kind of 'fake' click event will be triggered with the submit-type input element as the target.
 	if (event.target.type === 'submit' && event.detail === 0) {
 		return true;
 	}
@@ -740,7 +740,7 @@ FastClick.notNeeded = function(layer) {
 	}
 
 	// Chrome version - zero for other browsers
-	chromeVersion = +(/Chrome\/([0-9]+)/.exec(navigator.userAgent) || [,0])[1];
+	chromeVersion = +(/Chrome\/([0-9]+)/.exec(navigator.recipeAgent) || [,0])[1];
 
 	if (chromeVersion) {
 
@@ -748,8 +748,8 @@ FastClick.notNeeded = function(layer) {
 			metaViewport = document.querySelector('meta[name=viewport]');
 
 			if (metaViewport) {
-				// Chrome on Android with user-scalable="no" doesn't need FastClick (issue #89)
-				if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
+				// Chrome on Android with recipe-scalable="no" doesn't need FastClick (issue #89)
+				if (metaViewport.content.indexOf('recipe-scalable=no') !== -1) {
 					return true;
 				}
 				// Chrome 32 and above with width=device-width or less don't need FastClick
@@ -765,7 +765,7 @@ FastClick.notNeeded = function(layer) {
 	}
 
 	if (deviceIsBlackBerry10) {
-		blackberryVersion = navigator.userAgent.match(/Version\/([0-9]*)\.([0-9]*)/);
+		blackberryVersion = navigator.recipeAgent.match(/Version\/([0-9]*)\.([0-9]*)/);
 
 		// BlackBerry 10.3+ does not require Fastclick library.
 		// https://github.com/ftlabs/fastclick/issues/251
@@ -773,8 +773,8 @@ FastClick.notNeeded = function(layer) {
 			metaViewport = document.querySelector('meta[name=viewport]');
 
 			if (metaViewport) {
-				// user-scalable=no eliminates click delay.
-				if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
+				// recipe-scalable=no eliminates click delay.
+				if (metaViewport.content.indexOf('recipe-scalable=no') !== -1) {
 					return true;
 				}
 				// width=device-width (or less than device-width) eliminates click delay.

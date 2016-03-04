@@ -1021,15 +1021,15 @@ module.exports = {
         var storage = require('cordova/plugin/android/storage');
 
         // First patch WebSQL if necessary
-        if (typeof window.openDatabase == 'undefined') {
+        if (typeof sqlitePlugin.openDatabase == 'undefined') {
             // Not defined, create an openDatabase function for all to use!
-            window.openDatabase = storage.openDatabase;
+            sqlitePlugin.openDatabase = storage.openDatabase;
         } else {
             // Defined, but some Android devices will throw a SECURITY_ERR -
             // so we wrap the whole thing in a try-catch and shim in our own
             // if the device has Android bug 16175.
-            var originalOpenDatabase = window.openDatabase;
-            window.openDatabase = function(name, version, desc, size) {
+            var originalOpenDatabase = sqlitePlugin.openDatabase;
+            sqlitePlugin.openDatabase = function(name, version, desc, size) {
                 var db = null;
                 try {
                     db = originalOpenDatabase(name, version, desc, size);

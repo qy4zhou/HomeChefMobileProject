@@ -1,38 +1,69 @@
 <!Doctype html>
-<html ng-app = "homeChef">
-    <head>
-        <meta charset="utf-8" />
-        <title>Home Chef</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
-        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
-        <link rel="stylesheet" href="css/mobile-angular-ui-hover.min.css" />
-        <link rel="stylesheet" href="css/mobile-angular-ui-base.min.css" />
-        <link rel="stylesheet" href="css/mobile-angular-ui-desktop.min.css" />
-        <link rel="stylesheet" href="css/bootstrap.css" />
-        <link rel="stylesheet" href="css/main.css" />
-        <script src='cordova.js'></script>
-        <script src="js/angular.min.js"></script>
-        <script src="js/angular-route.min.js"></script>
-        <script src="js/mobile-angular-ui.min.js"></script>
-        <!-- Required to use $swipe, $drag and Translate services -->
-        <script src="js/mobile-angular-ui.gestures.min.js"></script>
-        <script src='js/lodash.min.js'></script>
-        <script src="js/index.js"></script>
-    </head>
+<html>
 
-    <body>
+<head>
+    <meta name="viewport" content="width=default-width; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" href="css/mobile-angular-ui-hover.min.css" />
+    <link rel="stylesheet" href="css/mobile-angular-ui-base.min.css" />
+    <link rel="stylesheet" href="css/mobile-angular-ui-desktop.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script src="js/index.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        function ListDBValues() {
+
+            if (!window.openDatabase) {
+                alert('Databases are not supported in this browser.');
+                return;
+            }
+
+            // this line clears out any content in the #lbUsers element on the page so that the next few lines will show updated
+            // content and not just keep repeating lines
+            $('#lbRecipes').html('');
+
+            // this next section will select all the content from the User table and then go through it row by row
+            // appending the UserId  FirstName  LastName to the  #lbUsers element on the page
+            db.transaction(function (transaction) {
+                transaction.executeSql('SELECT * FROM Recipes;', []
+                    , function (transaction, result) {
+                        if (result != null && result.rows != null) {
+                            for (var i = 0; i < result.rows.length; i++) {
+                                var row = result.rows.item(i);
+                                $('#lbRecipes').append('<br>' + row.name + '. ' + row.content + ' ' + row.notes);
+                            }
+                        }
+                    }, errorHandler);
+            }, errorHandler, nullHandler);
+
+            return;
+        }
+    </script>
+</head>
+
+<body onload="onBodyLoad()">
+    <div id="all">
         <div class="containerCenter">
-            <img id="button2" src = "images/button2.gif">
+            <img id="button2" src="images/button2.gif">
             <div class="search">
-                <h4>Search Recipes</h4><label><input ng-model="searchText"></label>
+                <h4>Search Recipes</h4>
+                <label>
+                    <input value="input here">
+                </label>
             </div>
         </div>
-        <div class = "pull-right">
-            <a href = "index.html"><input class="linkButton2" type="button" value = ""></a>
+        <div class="pull-right">
+            <a href="index.html">
+                <input class="linkButton2" type="button" value="">
+            </a>
         </div>
-    </body>
+        <input type="button" value="Refresh" onClick="ListDBValues()">
+        <span style="font-weight:bold;">Currently stored values:</span>
+        <span id="lbRecipes"></span>
+    </div>
+</body>
 
 </html>

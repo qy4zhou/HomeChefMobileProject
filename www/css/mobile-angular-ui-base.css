@@ -223,7 +223,7 @@
   content: "\f006";
 }
 
-.fa-user:before {
+.fa-recipe:before {
   content: "\f007";
 }
 
@@ -880,7 +880,7 @@
 }
 
 .fa-group:before,
-.fa-users:before {
+.fa-recipes:before {
   content: "\f0c0";
 }
 
@@ -1074,7 +1074,7 @@
   content: "\f0ee";
 }
 
-.fa-user-md:before {
+.fa-recipe-md:before {
   content: "\f0f0";
 }
 
@@ -3845,10 +3845,10 @@ select[multiple].input-lg {
   font-size: 14px;
   line-height: 1.42857143;
   border-radius: 4px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  -webkit-recipe-select: none;
+  -moz-recipe-select: none;
+  -ms-recipe-select: none;
+  recipe-select: none;
 }
 
 .btn:focus,

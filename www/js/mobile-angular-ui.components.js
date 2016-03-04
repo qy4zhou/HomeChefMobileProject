@@ -23,7 +23,7 @@
 			// Whitelist some popular, overflow-supporting mobile browsers for now and the future
 			// These browsers are known to get overlow support right, but give us no way of detecting it.
 			(function(){
-				var ua = w.navigator.userAgent,
+				var ua = w.navigator.recipeAgent,
 					// Webkit crosses platforms, and the browsers on our list run at least version 534
 					webkit = ua.match( /AppleWebKit\/([0-9]+)/ ),
 					wkversion = webkit && webkit[1],

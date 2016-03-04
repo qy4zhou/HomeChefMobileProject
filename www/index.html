@@ -1,48 +1,149 @@
 <!Doctype html>
-<html ng-app = "homeChef">
-    <head>
-        <meta charset="utf-8" />
-        <title>Home Chef</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
-        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
-        <link rel="stylesheet" href="css/mobile-angular-ui-hover.min.css" />
-        <link rel="stylesheet" href="css/mobile-angular-ui-base.min.css" />
-        <link rel="stylesheet" href="css/mobile-angular-ui-desktop.min.css" />
-        <link rel="stylesheet" href="css/bootstrap.css" />
-        <link rel="stylesheet" href="css/main.css" />
-        <script src='cordova.js'></script>
-        <script src="js/angular.min.js"></script>
-        <script src="js/angular-route.min.js"></script>
-        <script src="js/mobile-angular-ui.min.js"></script>
-        <!-- Required to use $swipe, $drag and Translate services -->
-        <script src="js/mobile-angular-ui.gestures.min.js"></script>
-        <script src='js/lodash.min.js'></script>
-        <script src="js/index.js"></script>
-    </head>
+<html>
 
-    <body>
-<!--        <div ng-controller = "formController">-->
-            <div class="containerCenter">
-                <a href="all.html"><img id="button2" src = "images/button1-viewAll.gif"></a>
-            </div>
-<!--
-            <table id="searchTextResults">
-                <tr ng-repeat="recipe in recipes | filter:searchText">
-                    <td>
-                        {{entry.title}} <br>
-                        {{entry.content}}<br>
-                        {{entry.notes}}<br>
-                    </td>
-                </tr>
-            </table>
-            </div>
--->
-        <br><br><br><br><br><br>
+<head>
+    <meta name="viewport" content="width=default-width; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" href="css/mobile-angular-ui-hover.min.css" />
+    <link rel="stylesheet" href="css/mobile-angular-ui-base.min.css" />
+    <link rel="stylesheet" href="css/mobile-angular-ui-desktop.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script src="js/index.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        var db;
+        var shortName = 'WebSqlDB';
+        var version = '1.0';
+        var displayName = 'WebSqlDB';
+        var maxSize = 65535;
+
+        function errorHandler(transaction, error) {
+            // alert('Error: ' + error.message + ' code: ' + error.code);
+        }
+
+        function successCallBack() {
+            //  alert("DEBUGGING: success");
+        }
+
+        function nullHandler() {};
+
+        function onBodyLoad() {
+           // alert("DEBUGGING: we are in the onBodyLoad() function");
+            if (!window.openDatabase) {
+                alert('Databases are not supported in this browser.');
+                return;
+            }
+            db = openDatabase(shortName, version, displayName, maxSize);
+            db.transaction(function (tx) {
+                tx.executeSql('DROP TABLE Recipes', nullHandler, nullHandler);
+                tx.executeSql('CREATE TABLE IF NOT EXISTS Recipes(name TEXT, content TEXT, notes TEXT)', [], nullHandler, errorHandler);
+            }, errorHandler, successCallBack);
+        }
+
+        function AddValueToDB() {
+            if (!window.openDatabase) {
+                alert('Databases are not supported in this browser.');
+                return;
+            }
+            db.transaction(function (transaction) {
+                transaction.executeSql('INSERT INTO Recipes(name, content, notes) VALUES (?,?,?)', [$('#txName').val(), $('#txContent').val(), $('#txNotes').val()], nullHandler, errorHandler);
+            });
+            //ListDBValues();
+            return false;
+        }
+
+        function ListDBValues() {
+
+            if (!window.openDatabase) {
+                alert('Databases are not supported in this browser.');
+                return;
+            }
+            $('#lbRecipes').html('');
+            db.transaction(function (transaction) {
+                transaction.executeSql('SELECT * FROM Recipes;', []
+                    , function (transaction, result) {
+                        if (result != null && result.rows != null) {
+                            for (var i = 0; i < result.rows.length; i++) {
+                                var row = result.rows.item(i);
+                                $('#lbRecipes').append('<br>' + row.name + '. ' + row.content + ' ' + row.notes);
+                            }
+                        }
+                    }, errorHandler);
+            }, errorHandler, nullHandler);
+            return;
+        }
+
+        $(document).ready(function () {
+            $('#newPage').hide();
+
+            $("#home").click(function () {
+                $("#index").toggle();
+
+                $("#new").click(function () {
+                    $("#newPage").toggle();
+                });
+            });
+        });
+    </script>
+</head>
+
+<body onload="onBodyLoad()">
+    <div id="index">
         <div class="containerCenter">
-            <a href="new.html"><img id="button1" src = "images/button1-createNew.gif"></a>
+            <a href="all.html"><img id="button2" src="images/button1-viewAll.gif"></a>
         </div>
-    </body>
+        <a href="play.html">sdfsdf</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="containerCenter">
+            <a id="new" href="new.html"><img id="button1" src="images/button1-createNew.gif"></a>
+        </div>
+    </div>
+
+    <div id="newPage">
+        <div class="backgroundColor">
+            <img class="centered" id="button2" src="images/button2-createNew.gif">
+            <br>
+            <br>
+            <div class="containerEdit">
+                <label for="txName">
+                    <h4>Recipe Name</h4></label>
+                <br>
+                <textarea rows="1" cols="30" id="txName"></textarea>
+                <br>
+                <label for="txContent">
+                    <h4>Ingredients/Instructions</h4></label>
+                <br>
+                <textarea rows="6" cols="40" id="txContent"></textarea>
+                <br>
+                <label for="txNotes">
+                    <h4>Notes</h4></label>
+                <br>
+                <textarea rows="3" cols="40" id="txNotes"></textarea>
+                <br>
+                <br>
+                <br>
+                <div row="col-xs-6">
+                    <div class="pull-left">
+                        <input class="linkButton1" type="submit" value="" onclick="AddValueToDB()">
+                    </div>
+                    <div class="pull-right">
+                        <a id="home" href="index.html">
+                            <input class="linkButton2" type="button" value="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>

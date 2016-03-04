@@ -116,7 +116,7 @@
       // Disable transitions
       sheet.insertRule('html .ui-drag-move{-webkit-transition: none !important;-moz-transition: none !important;-o-transition: none !important;-ms-transition: none !important;transition: none !important;}', 0);
       // Makes text unselectable
-      sheet.insertRule('html .ui-drag-move, html .ui-drag-move *{-webkit-touch-callout: none !important;-webkit-user-select: none !important;-khtml-user-select: none !important;-moz-user-select: none !important;-ms-user-select: none !important;user-select: none !important;}', 0);
+      sheet.insertRule('html .ui-drag-move, html .ui-drag-move *{-webkit-touch-callout: none !important;-webkit-recipe-select: none !important;-khtml-recipe-select: none !important;-moz-recipe-select: none !important;-ms-recipe-select: none !important;recipe-select: none !important;}', 0);
 
       return {
         Transform: Transform,
