@@ -12,14 +12,13 @@
 Qinyuan Zhou    </author>
 -->
 <!-- We'll include the Barcode plugin as an example -->
-<preference name="phonegap-version" value="3.7.0" />
 <!--
     <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
 -->
 <!--</widget>-->
 
-<widget id="io.github.qy4zhou" version="0.0.1">
+<widget id="io.github.qy4zhou" version="0.0.1" encoding="UTF-8">
     <name>Home Chef</name>
     <description>
         A simple app for storing recipes.
@@ -29,6 +28,9 @@ Qinyuan Zhou    </author>
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <preference name="phonegap-version" value="3.7.0" />
+<preference name="iosExtraFilesystems" value="library,library-nosync,documents,documents-nosync,cache,bundle,root" />
+<preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
     <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.6" source="pgb" />
     <feature name="Plugin">
         <param name="android-package" value="com.example.Plugin" />
